@@ -52,5 +52,36 @@ Before starting, make sure you have the following tools installed:
 
 ## Setup
 
+### 1. Installing Px4
+
+At the start we did all the necessary steps to install correctly the PX4 library.
+
+```bash
+git clone https://github.com/PX4/PX4-Autopilot.git --recursive
+bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
+cd PX4-Autopilot/
+
+To run just a single instance of PX4 is used the command :
+
+```bash
+make px4_sitl jmavsim
+
+To run two different instances of PX4 we can use the following command:
+
+```bash
+./Tools/simulation./sitl_multiple_run.sh 2
+
+In the simulation setup, two important parameters are passed to the script jmavsim run.sh. The
+option -p is used to specify the UDP port through which JMAVSim communicates with PX4.
+For instance, launching the simulator with -p 4560 establishes the connection on port 4560. This
+mechanism allows multiple instances of JMAVSim to run in parallel, as each instance can be assigned
+a different communication port, thereby avoiding conflicts. The option -l, instead, enables the
+so-called lockstep mode. When this mode is active, JMAVSim and PX4 progress in a strictly
+synchronized fashion: the simulator advances the physical model step by step, waiting for PX4
+to complete the processing of each step before continuing.
+
+```bash
+./Tools/simulation/jmavsim/jmavsim_run.sh -p 4560 -l
+./Tools/simulation/jmavsim/jmavsim_run.sh -p 4561 -l
 
 
