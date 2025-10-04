@@ -23,7 +23,7 @@ When certain events occur—such as two drones flying within a specified distanc
 
 ---
 
-## ⚙️ Requirements
+## Requirements
 
 Before starting, make sure you have the following tools installed:
 
@@ -39,7 +39,7 @@ Before starting, make sure you have the following tools installed:
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 1. **PX4 SITL** simulates UAVs and publishes telemetry via **MAVLink**.  
 2. **Micro XRCE-DDS Agent** bridges MAVLink messages to ROS 2 topics.  
@@ -50,7 +50,7 @@ Before starting, make sure you have the following tools installed:
 
 ---
 
-## 🏗️ Setup
+## Setup
 
 
 
