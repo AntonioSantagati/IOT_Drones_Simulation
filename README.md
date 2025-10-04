@@ -133,5 +133,39 @@ chmod +x ./QGroundControl.AppImage
 ```bash
 ./QGroundControl.AppImage
 ```
+---
+
+### Helm Installation
+
+```bash
+curl -fsSL https://get.helm.sh/helm-v3.15.2-linux-amd64.tar.gz -o helm.tgz
+tar -xzf helm.tgz
+sudo mv linux-amd64/helm /usr/local/bin/helm
+helm version
+```
+---
+
+## Creating robotcube namespace
+
+```bash
+kubectl create namespace robotkube
+kubectl config set-context --current --namespace=robotkube
+```
+
+---
+
+## How to Start
+
+1. To start everything is enough to clone the repository inside the machine and launch the following command:
+
+```bash
+k3d cluster start robotcube
+```
+2. To stop everything we can use the following command :
+
+```bash
+k3d cluster stop
+```
+
 
 
