@@ -52,36 +52,40 @@ Before starting, make sure you have the following tools installed:
 
 ## Setup
 
-### 1. Installing Px4
+### PX4 Setup and Simulation
 
-At the start we did all the necessary steps to install correctly the PX4 library.
+Follow these steps to install, run, and manage PX4 simulations.
 
 ```bash
+# 1. Installing PX4
+
+# Clone the PX4 repository
 git clone https://github.com/PX4/PX4-Autopilot.git --recursive
+
+# Run the setup script for Ubuntu
 bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
+
+# Navigate into the PX4 directory
 cd PX4-Autopilot/
 
-To run just a single instance of PX4 is used the command :
+# 2. Running PX4
 
-```bash
+# Single instance
 make px4_sitl jmavsim
 
-To run two different instances of PX4 we can use the following command:
+# Multiple instances
+./Tools/simulation/sitl_multiple_run.sh 2
 
-```bash
-./Tools/simulation./sitl_multiple_run.sh 2
+# 3. Simulation parameters
 
-In the simulation setup, two important parameters are passed to the script jmavsim run.sh. The
-option -p is used to specify the UDP port through which JMAVSim communicates with PX4.
-For instance, launching the simulator with -p 4560 establishes the connection on port 4560. This
-mechanism allows multiple instances of JMAVSim to run in parallel, as each instance can be assigned
-a different communication port, thereby avoiding conflicts. The option -l, instead, enables the
-so-called lockstep mode. When this mode is active, JMAVSim and PX4 progress in a strictly
-synchronized fashion: the simulator advances the physical model step by step, waiting for PX4
-to complete the processing of each step before continuing.
+# Running jmavsim_run.sh with custom options
+# -p <port> specifies the UDP port for JMAVSim-PX4 communication
+# -l enables lockstep mode (synchronized step-by-step simulation)
 
-```bash
+# Example: two instances in lockstep mode
 ./Tools/simulation/jmavsim/jmavsim_run.sh -p 4560 -l
 ./Tools/simulation/jmavsim/jmavsim_run.sh -p 4561 -l
+
+
 
 
