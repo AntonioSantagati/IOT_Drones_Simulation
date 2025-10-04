@@ -23,6 +23,12 @@ When certain events occur—such as two drones flying within a specified distanc
 
 ---
 
+## Prerequisites
+- A machine running Ubuntu 20.04 LTS or Ubuntu 22.04.
+- Internet connection for downloading necessary software packages.
+
+---
+
 ## Requirements
 
 Before starting, make sure you have the following tools installed:
@@ -86,6 +92,26 @@ make px4_sitl jmavsim
 ./Tools/simulation/jmavsim/jmavsim_run.sh -p 4560 -l
 ./Tools/simulation/jmavsim/jmavsim_run.sh -p 4561 -l
 
+```
+---
+### Java Verification/Installation
+
+Verify Java is installed. The output should say openjdk version "xx...
+
+```bash
+java -version
+
+# 1. If Java is not installed, then it should say Command ‘java’ not found
+Install OpenJDK 18:
+
+sudo apt-get install openjdk-18-jdk
+sudo apt-get install openjdk-18-jre
+
+# 2. Verify the Java installation. The output should be similar to openjdk version "xx...:
+
+java -version
+
+```
 
 
 
