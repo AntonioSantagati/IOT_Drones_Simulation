@@ -112,6 +112,26 @@ sudo apt-get install openjdk-18-jre
 java -version
 
 ```
+### QGruoundControl Installation
 
+1. Download QGroundControl: Download QGroundControl
+
+2. Navigate to the directory where QGroundControl was downloaded (assuming it's the Downloads directory):
+
+```bash
+cd ~/Downloads
+```
+
+3. Make the QGroundControl.AppImage executable:
+
+```bash
+chmod +x ./QGroundControl.AppImage
+```
+
+4. Run QGroundControl:
+
+```bash
+./QGroundControl.AppImage
+```
 
 
