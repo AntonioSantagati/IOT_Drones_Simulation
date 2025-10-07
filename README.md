@@ -223,12 +223,12 @@ MicroXRCEAgent udp4 -p 8888
 1. To start everything is enough to clone the repository inside the machine and launch the following command:
 
 ```bash
-k3d cluster start robotcube
+k3d cluster start robotkube
 ```
 2. To stop everything we can use the following command :
 
 ```bash
-k3d cluster stop
+k3d cluster stop robotkube
 ```
 
 
