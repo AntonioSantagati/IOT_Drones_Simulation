@@ -196,6 +196,27 @@ the status of the MongoDB pod and service
 kubectl get pods -l app.kubernetes.io/name=mongodb
 kubectl get svc mongodb
 ```
+---
+## Enabling Communications
+
+1. In order to enable communication between ROS~2 and PX4 the Micro XRCE-DD is used
+
+```bash
+git clone -b v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+cd Micro-XRCE-DDS-Agent
+mkdir build && cd build
+cmake ..
+make
+sudo make install
+sudo ldconfig /usr/local/lib/
+```
+
+2. Once installed, the agent can be launched by opening a terminal and executing:
+
+```bash
+MicroXRCEAgent udp4 -p 8888
+```
+   
 
 ## How to Start
 
