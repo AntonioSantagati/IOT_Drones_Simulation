@@ -154,6 +154,49 @@ kubectl config set-context --current --namespace=robotkube
 
 ---
 
+## Setup Cluster
+1. In order to set up the cluster we need to install the command-line tools required
+for managing Kubernetes.
+
+```bash
+mkdir -p ~/k3d-storage
+
+k3d cluster create robotkube \
+  --servers 1 \
+  --agents 0 \
+  --volume "$HOME/k3d-storage:/var/lib/rancher/k3s/storage@all"
+```
+
+2. In addition we can update the Kubernetes context so that all subsequent commands would automatically refer to this
+namespace, removing the need to specify it explicitly each time.
+
+```bash
+kubectl create namespace robotkube
+kubectl config set-context --current --namespace=robotkube
+```
+3. After preparing the namespace, the next step is the deployment of a database 
+service inside the cluster using helm to deploy MongoDB inside the cluster.
+
+```bash
+helm install mongodb bitnami/mongodb \
+  --namespace robotkube \
+  --set architecture=standalone \
+  --set auth.rootUser=root \
+  --set auth.rootPassword="$MONGO_ROOT_PASSWORD" \
+  --set auth.username="$MONGO_APP_USER" \
+  --set auth.password="$MONGO_APP_PASSWORD" \
+  --set auth.database="$MONGO_APP_DB" \
+  --wait
+```
+4. To confirm that the database was correctly deployed and running, 
+the status of the MongoDB pod and service
+
+
+```bash
+kubectl get pods -l app.kubernetes.io/name=mongodb
+kubectl get svc mongodb
+```
+
 ## How to Start
 
 1. To start everything is enough to clone the repository inside the machine and launch the following command:
@@ -166,6 +209,7 @@ k3d cluster start robotcube
 ```bash
 k3d cluster stop
 ```
+
 
 
 
