@@ -242,12 +242,31 @@ source install/setup.bash
 
 ## How to Start
 
-1. To start everything is enough to clone the repository inside the machine and launch the following command:
+1. To start everything you need to make sure that everything has been cloned inside the machine.
+2. After that images have been created you have to import the images inside the cluster:
+
+```bash
+k3d image import <name_of_image>:<version> -c robotkube
+```   
+3. Then u need to apply the yaml files:
+   
+```bash
+kubectl apply -f <file_yaml>
+```
+4. If there are more than one just run that command for all the files, then you need to perform the rollout of the deployment inside the cluster.
+   
+```bash
+kubectl -n robotkube rollout status deploy/<name_of_deployment>
+#Application Manager = robotkube-am
+#Event Detector = event-detector
+#Data Recorder = data-recorder
+```
+
+5. If u want to stop and re-start the cluster you can use this commands:
 
 ```bash
 k3d cluster start robotkube
 ```
-2. To stop everything we can use the following command :
 
 ```bash
 k3d cluster stop robotkube
