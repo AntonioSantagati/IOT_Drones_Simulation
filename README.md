@@ -221,10 +221,21 @@ MicroXRCEAgent udp4 -p 8888
 
 ## Downloading Application Manager Interfaces
 
-1. In order to let the Application Manager and the Event Detector work properly is a necessity to download the Application Manager interfaces and put them inside their folders
+1. In order to let the Application Manager and the Event Detector work properly is a necessity to download the Application Manager interfaces and put them inside their folders.
+The command has to be launched in a new terminal
 
 ```bash
-comando corretto
+source /opt/ros/humble/setup.bash
+
+cd ~/ws_robotkube/src
+git clone https://github.com/ika-rwth-aachen/application_manager.git
+
+cd ..
+rosdep update
+rosdep install -r --ignore-src --from-paths src -y
+
+colcon build --packages-up-to application_manager_interfaces
+source install/setup.bash
 ```
 
 ---
