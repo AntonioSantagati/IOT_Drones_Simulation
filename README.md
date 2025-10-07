@@ -175,7 +175,7 @@ kubectl create namespace robotkube
 kubectl config set-context --current --namespace=robotkube
 ```
 3. After preparing the namespace, the next step is the deployment of a database 
-service inside the cluster using helm to deploy MongoDB inside the cluster.
+service inside the cluster using helm to deploy MongoDB inside the cluster but first is required to setup the Enviorment Variables.
 
 ```bash
 helm install mongodb bitnami/mongodb \
