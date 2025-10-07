@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-detector
+  namespace: robotkube
+  labels: { app: event-detector }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: event-detector } }
+  template:
+    metadata:
+      labels: { app: event-detector }
+    spec:
+      serviceAccountName: robotkube-am   # reuse existing AM service account
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: event-detector
+        image: event-detector:0.1
+        imagePullPolicy: IfNotPresent
+        env:
+        - { name: ROS_DOMAIN_ID, value: "0" }
+        - { name: ROS_LOCALHOST_ONLY, value: "0" }
+        - { name: RMW_IMPLEMENTATION, value: rmw_fastrtps_cpp }
+        # Optional: configure PX4 odometry topics via env
+        - { name: UAV1_TOPIC, value: "/fmu/out/vehicle_odometry" }
+        - { name: UAV2_TOPIC, value: "/px4_1/fmu/out/vehicle_odometry" }
