@@ -216,7 +216,18 @@ sudo ldconfig /usr/local/lib/
 ```bash
 MicroXRCEAgent udp4 -p 8888
 ```
-   
+
+---
+
+## Downloading Application Manager Interfaces
+
+1. In order to let the Application Manager and the Event Detector work properly is a necessity to download the Application Manager interfaces and put them inside their folders
+
+```bash
+comando corretto
+```
+
+---
 
 ## How to Start
 
