@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-recorder
+  namespace: robotkube
+  labels:
+    app: data-recorder
+    managed-by: app-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: data-recorder }
+  template:
+    metadata:
+      labels:
+        app: data-recorder
+        managed-by: app-manager
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: data-recorder
+        image: docker.io/library/data-recorder:0.1   # fully qualified image name
+        imagePullPolicy: Never                       # 'Never' for offline testing
+        env:
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: mongo-conn
+              key: MONGO_URI
+        - name: ROS_DOMAIN_ID
+          value: "0"
+        - name: ROS_LOCALHOST_ONLY
+          value: "0"
+        - name: RMW_IMPLEMENTATION
+          value: rmw_cyclonedds_cpp
