@@ -10,26 +10,26 @@ RUN apt-get update && apt-get install -y \
 # ROS 2 workspace
 WORKDIR /ws
 
-# px4_msgs (aligned to PX4 1.14 / Humble)
+# px4_msgs 
 RUN git clone -b release/1.14 https://github.com/PX4/px4_msgs.git /ws/src/px4_msgs
 
-# application_manager_interfaces (copied from local dev machine)
+# application_manager_interfaces
 COPY application_manager_interfaces /ws/src/application_manager_interfaces
 
 # Event Detector Python node
 COPY event_detector_node.py /opt/ed/event_detector_node.py
 RUN chmod +x /opt/ed/event_detector_node.py
 
-# Build interfaces (px4_msgs + AM). The Python node itself needs no build.
+# Build interfaces (px4_msgs + AM) 
 RUN bash -lc "source /opt/ros/humble/setup.bash && \
               colcon build --packages-select px4_msgs application_manager_interfaces"
 
-# Runtime environment (default to CycloneDDS; can be overridden at deploy time)
+# Runtime environment 
 ENV ROS_DOMAIN_ID=0
 ENV ROS_LOCALHOST_ONLY=0
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-# Entry point: source ROS + workspace and launch the node
+
 CMD ["bash","-lc", \
      "source /opt/ros/humble/setup.bash && \
       source /ws/install/setup.bash && \
