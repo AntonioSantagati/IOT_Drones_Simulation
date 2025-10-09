@@ -20,8 +20,8 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: data-recorder
-        image: docker.io/library/data-recorder:0.1   # fully qualified image name
-        imagePullPolicy: Never                       # 'Never' for offline testing
+        image: docker.io/library/data-recorder:0.1   
+        imagePullPolicy: Never                      
         env:
         - name: MONGO_URI
           valueFrom:
