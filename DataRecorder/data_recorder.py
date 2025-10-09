@@ -32,7 +32,7 @@ class Recorder(Node):
 
         self.get_logger().info(f'Connesso a Mongo: {self.db.name}')
 
-        # Odometry (QoS sensor data) with topic passed to the callback
+        # Odometry  with topic passed to the callback
         self.sub_odom_1 = self.create_subscription(
             VehicleOdometry, '/fmu/out/vehicle_odometry',
             partial(self.cb_odom, topic='/fmu/out/vehicle_odometry'),
@@ -43,7 +43,7 @@ class Recorder(Node):
             partial(self.cb_odom, topic='/px4_1/fmu/out/vehicle_odometry'),
             qos_profile_sensor_data)
 
-        # Status (use sensor-data QoS for consistency with PX4)
+        # Status (use sensor-data QoS)
         self.sub_status_1 = self.create_subscription(
             VehicleStatus, '/fmu/out/vehicle_status_v1',
             partial(self.cb_status, topic='/fmu/out/vehicle_status_v1'),
@@ -58,7 +58,7 @@ class Recorder(Node):
         uav = get_uav_id_from_topic(topic)
         doc = {
             'uav': uav,
-            't': int(msg.timestamp),  # ns since boot
+            't': int(msg.timestamp),  
             'position': {
                 'x': float(msg.position[0]),
                 'y': float(msg.position[1]),
