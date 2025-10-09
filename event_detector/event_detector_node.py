@@ -74,10 +74,10 @@ class DistanceEventDetector(Node):
 
         app = Application()
         app.header = ApplicationHeader()
-        app.header.id = 'data_recorder'          # must match AM_APP_MAP
-        app.header.node_id = 'data-recorder-1'   # optional
+        app.header.id = 'data_recorder'          
+        app.header.node_id = 'data-recorder-1'   
         goal.apps = [app]
-        goal.connections = []                    # not needed here
+        goal.connections = []                    
 
         send_future = self.am_client.send_goal_async(goal)
         def _done_cb(_):
