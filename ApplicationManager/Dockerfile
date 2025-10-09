@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /ws
 COPY application_manager_interfaces /ws/src/application_manager_interfaces
 
-# Build interfaces (generate Python modules into the image)
+# Build interfaces 
 RUN bash -lc "source /opt/ros/humble/setup.bash && \
               colcon build --packages-select application_manager_interfaces"
 RUN apt-get update && apt-get install -y ros-humble-rmw-cyclonedds-cpp && \
