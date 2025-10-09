@@ -1,0 +1,56 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: robotkube-am
+   namespace: robotkube
+   labels:
+     app: robotkube-am-executor
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: robotkube-am-executor
+   template:
+     metadata:
+       labels:
+         app: robotkube-am-executor
+     spec:
+       serviceAccountName: robotkube-am
+       hostNetwork: true
+       dnsPolicy: ClusterFirstWithHostNet
+       containers:
+       - name: am-executor
+         image: am-executor:0.1 # local image imported into k3d
+         imagePullPolicy: IfNotPresent
+         env:
+         - name: ROS_DOMAIN_ID
+           value: "0"
+         - name: ROS_LOCALHOST_ONLY
+           value: "0"
+         - name: AM_NAMESPACE
+           value: "robotkube"
+         - name: AM_APPS_DIR
+           value: "/apps"
+         - name: AM_APP_MAP
+           value: "data_recorder=data-recorder.yaml"
+         - name: AM_ACTION_NAME
+           value: "/deployment_request"
+         volumeMounts:
+         - name: apps
+           mountPath: /apps
+           readOnly: true
+         - name: logic
+           mountPath: /opt/am
+           readOnly: true
+         command: ["/bin/bash","-lc"]
+         args: ["python3 /opt/am/am_server.py"]
+         volumes:
+         - name: apps
+           configMap:
+             name: am-apps
+         - name: logic
+           configMap:
+             name: am-logic
+ 
+ ENV ROS_LOCALHOST_ONLY=0
+ ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
